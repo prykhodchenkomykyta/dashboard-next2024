@@ -1,5 +1,5 @@
 "use client";
-import styles from "./menuLink.module.css";
+import styles from "./navbar.module.css";
 import { usePathname } from "next/navigation";
 import {
   MdNotifications,

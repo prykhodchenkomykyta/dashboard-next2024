@@ -90,7 +90,7 @@ const Sidebar = () => {
         />
         <div className={styles.userDetail}>
           <span className={styles.username}>Jon Snow</span>
-          <span className={styles.userTitle}>King</span>
+          <span className={styles.userTitle}>Admin</span>
         </div>
       </div>
       <ul className={styles.list}>

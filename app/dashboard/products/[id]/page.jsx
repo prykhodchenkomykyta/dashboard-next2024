@@ -24,7 +24,7 @@ const SingleProductPage = () => {
           <textarea type="text" name="size" placeholder="256GB" />
           <label>Category</label>
           <select name="cat" id="cat">
-            <option value="kitchet">Kitchet</option>
+            <option value="kitchen">Kitchen</option>
             <option value="computers">Computers</option>
           </select>
           <label>Description</label>
