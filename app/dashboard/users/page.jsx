@@ -5,9 +5,9 @@ import styles from "@/app/ui/dashboard/users/users.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-const UsersPage = async () => {
-  const users = await fetchUsers();
-  console.log(users);
+const UsersPage = async ({ searchParams }) => {
+  const q = searchParams?.q || "";
+  const users = await fetchUsers(q);
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -29,36 +29,38 @@ const UsersPage = async () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div className={styles.user}>
-                  <Image
-                    src="/noavatar.png"
-                    alt=""
-                    width={40}
-                    height={40}
-                    className={styles.avatar}
-                  />
-                  Jon Snow
-                </div>
-              </td>
-              <td>jon@email.com</td>
-              <td>20.04.2024</td>
-              <td>Admin</td>
-              <td>Active</td>
-              <td>
-                <div className={styles.buttons}>
-                  <Link href="/dashboard/users/test">
-                    <button className={`${styles.button} ${styles.view}`}>
-                      View
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>
+                  <div className={styles.user}>
+                    <Image
+                      src={user.img || "/noavatar.png"}
+                      alt=""
+                      width={40}
+                      height={40}
+                      className={styles.avatar}
+                    />
+                    {user.username}
+                  </div>
+                </td>
+                <td>{user.email}</td>
+                <td>{user.createdAt?.toString().slice(4, 16)}</td>
+                <td>{user.isAdmin ? "Admin" : "Client"}</td>
+                <td>{user.isActive ? "Active" : "Passive"}</td>
+                <td>
+                  <div className={styles.buttons}>
+                    <Link href={`/dashboard/users/${user.id}`}>
+                      <button className={`${styles.button} ${styles.view}`}>
+                        View
+                      </button>
+                    </Link>
+                    <button className={`${styles.button} ${styles.delete}`}>
+                      Delete
                     </button>
-                  </Link>
-                  <button className={`${styles.button} ${styles.delete}`}>
-                    Delete
-                  </button>
-                </div>
-              </td>
-            </tr>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <Pagination />
